@@ -4,17 +4,18 @@
 // endbower
 
 body {
-  margin: 0;
+  margin: 2vw;
   background: #222;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-#nobodywrites g, #Layer_1 path {
+#Layer_2 {
   fill: #252525;
   stroke: #fafafa;
   stroke-dasharray: 500;
   stroke-dashoffset: 1000;
 
-  path {
-    fill: #252525;
+  text {
+    fill: #f0f;
+    stroke: #252525;
   }
 }

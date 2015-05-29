@@ -3,6 +3,7 @@
 // generated on 2015-05-29 using generator-gulp-webapp 0.3.0
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var ghPages = require('gulp-gh-pages');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
@@ -98,6 +99,11 @@ gulp.task('serve', ['styles', 'fonts'], function () {
   gulp.watch('app/styles/**/*.scss', ['styles']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
+});
+
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
 });
 
 // inject bower components
