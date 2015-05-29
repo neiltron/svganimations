@@ -1,0 +1,1 @@
+"use strict";!function(){var t=new TimelineMax;t.staggerFromTo("#nobodywrites path",5,{attr:{"stroke-dashoffset":1e3}},{attr:{"stroke-dashoffset":0},repeat:-1,yoyo:!0},1)}(jQuery);
