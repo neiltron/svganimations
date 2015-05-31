@@ -4,18 +4,16 @@
 // endbower
 
 body {
-  margin: 2vw;
+  margin: 2vw 2vh;
   background: #222;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height: 100%;
 }
-#Layer_2 {
-  fill: #252525;
+svg {
+  fill: #232323;
   stroke: #fafafa;
-  stroke-dasharray: 500;
-  stroke-dashoffset: 1000;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
 
-  text {
-    fill: #f0f;
-    stroke: #252525;
-  }
+  max-height: 92vh;
 }
