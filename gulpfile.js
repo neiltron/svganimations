@@ -143,7 +143,7 @@ gulp.task('serve', ['styles', 'fonts', 'svgstore'], function () {
 
 gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
-    .pipe(ghPages());
+    .pipe(ghPages({ force: true }));
 });
 
 // inject bower components
@@ -163,7 +163,7 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'svgstore', 'extras'], function () {
+gulp.task('build', ['jshint', 'html', 'fonts', 'svgstore', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
