@@ -3,8 +3,12 @@
 // generated on 2015-05-29 using generator-gulp-webapp 0.3.0
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var ghPages = require('gulp-gh-pages');
 var browserSync = require('browser-sync');
+var ghPages = require('gulp-gh-pages');
+var svgstore = require('gulp-svgstore');
+var svgmin = require('gulp-svgmin');
+var cheerio = require('gulp-cheerio');
+var inject = require('gulp-inject');
 var reload = browserSync.reload;
 
 gulp.task('styles', function () {
@@ -74,9 +78,44 @@ gulp.task('extras', function () {
   }).pipe(gulp.dest('dist'));
 });
 
+gulp.task('svgstore', function () {
+    var svgs = gulp
+        .src('app/images/letters/*.svg')
+        .pipe(cheerio({
+            run: function ($) {
+                $('[fill]').removeAttr('fill');
+                $('metadata').remove()
+                // $('style').remove()
+                $('linearGradient').remove()
+                $('#Layer_1').remove();
+                $('#Layer_2').attr('id', 'letter');
+            },
+            parserOptions: { xmlMode: true }
+        }))
+        .pipe(svgstore({ inlineSvg: true }))
+        .pipe(svgmin({
+            js2svg: {
+                pretty: true
+            }
+        }))
+        .pipe(gulp.dest('.tmp/images/letters'))
+        .pipe(gulp.dest('dist/images/letters'));
+
+    function fileContents (filePath, file) {
+        return file.contents.toString();
+    }
+
+    return gulp
+      .src('app/index.html')
+      .pipe(inject(svgs, { transform: fileContents }))
+      .pipe(gulp.dest('.tmp'));
+
+
+});
+
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['styles', 'fonts'], function () {
+gulp.task('serve', ['styles', 'fonts', 'svgstore'], function () {
   browserSync({
     notify: false,
     port: 9000,

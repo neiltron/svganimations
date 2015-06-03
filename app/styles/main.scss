@@ -3,17 +3,35 @@
 @import "bower_components/neat/app/assets/stylesheets/_neat.scss";
 // endbower
 
-body {
-  margin: 2vw 2vh;
+body, html {
   background: #222;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100%;
+  padding: 0;
+  margin: 0;
 }
-svg {
-  fill: #232323;
-  stroke: #fafafa;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 0;
 
-  max-height: 92vh;
+main { height: 100%; }
+
+
+main svg {
+  height: 14vh;
+  width: 14vw;
+
+  transform: translateX(25%) translateY(50%);
+
+  path {
+    -webkit-backface-visibility: hidden;
+    fill: #232323;
+    stroke: #fafafa;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+
+    transform: scale(2);
+  }
+}
+
+aside {
+  display: none;
 }

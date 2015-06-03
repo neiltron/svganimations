@@ -1,3 +1,4 @@
+/* exported strings */
 var strings = [
   'alpacas',
   'droopiestnips',
