@@ -108,7 +108,8 @@ gulp.task('svgstore', function () {
     return gulp
       .src('app/index.html')
       .pipe(inject(svgs, { transform: fileContents }))
-      .pipe(gulp.dest('.tmp'));
+      .pipe(gulp.dest('.tmp'))
+      .pipe(gulp.dest('dist'));
 
 
 });
@@ -162,7 +163,7 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
+gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'svgstore', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
