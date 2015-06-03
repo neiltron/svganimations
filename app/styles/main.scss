@@ -1,5 +1,6 @@
 // bower:scss
 @import "bower_components/bourbon/app/assets/stylesheets/_bourbon.scss";
+@import "bower_components/bitters/app/assets/stylesheets/_base.scss";
 @import "bower_components/neat/app/assets/stylesheets/_neat.scss";
 // endbower
 
@@ -19,6 +20,8 @@ main svg {
   width: 14vw;
 
   transform: translateX(25%) translateY(50%);
+  position: relative;
+  top: -5%;
 
   path {
     -webkit-backface-visibility: hidden;
@@ -28,7 +31,9 @@ main svg {
     max-height: 100%;
     display: block;
 
-    transform: scale(2);
+    @include media($medium-screen) {
+      transform: scale(2);
+    }
   }
 }
 
