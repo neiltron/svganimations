@@ -71,10 +71,10 @@
         alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
     for (var i = 0; i < charsLength; i++) {
-      var index = alphabet.indexOf(chars[i]) + 1,
-          index = index < 10 ? '0' + index : index;
+      var index = alphabet.indexOf(chars[i]) + 1;
+      index = index < 10 ? '0' + index : index;
 
-      $('main').append(createSVG(index, chars[i]))
+      $('main').append(createSVG(index, chars[i]));
     }
 
     TweenLite.set($('#lipsums path'), { attr: { 'stroke-dashoffset': 0 }});
@@ -85,11 +85,11 @@
         path = $('aside #letters-' + index).children('path').clone();
 
     svg.appendChild(path[0]);
-    svg.setAttribute('id', 'letters-' + index)
-    svg.setAttribute('class', char)
+    svg.setAttribute('id', 'letters-' + index);
+    svg.setAttribute('class', char);
 
     return svg;
-  }
+  };
 
 
   setupGrid();
