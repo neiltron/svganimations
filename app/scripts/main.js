@@ -82,18 +82,23 @@
 
   var createSVG = function (index, char) {
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
-        path = $('aside #letters-' + index).children('path').clone();
+        symbols = lettersSVG.contentDocument,
+        path = symbols.getElementById('letters-' + index).getElementsByTagName('path')[0].cloneNode();
 
-    svg.appendChild(path[0]);
-    svg.setAttribute('id', 'letters-' + index);
-    svg.setAttribute('class', char);
+    if (path !== null) {
+      svg.appendChild(path);
+      svg.setAttribute('id', 'letters-' + index);
+      svg.setAttribute('class', char);
 
-    return svg;
+      return svg;
+    }
   };
 
-
-  setupGrid();
-  setPathLengths();
-  clearLetters(0.025);
+  var lettersSVG = document.getElementById('letters');
+  lettersSVG.addEventListener('load', function () {
+    setupGrid();
+    setPathLengths();
+    clearLetters(0.025);
+  });
 
 })(jQuery);

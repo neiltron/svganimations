@@ -9,6 +9,8 @@ var svgstore = require('gulp-svgstore');
 var svgmin = require('gulp-svgmin');
 var cheerio = require('gulp-cheerio');
 var inject = require('gulp-inject');
+var argv = require('minimist')(process.argv.slice(2));
+var del = require('del');
 var reload = browserSync.reload;
 
 gulp.task('styles', function () {
@@ -79,7 +81,7 @@ gulp.task('extras', function () {
 });
 
 gulp.task('svgstore', function () {
-    var svgs = gulp
+    return gulp
         .src('app/images/letters/*.svg')
         .pipe(cheerio({
             run: function ($) {
@@ -92,7 +94,7 @@ gulp.task('svgstore', function () {
             },
             parserOptions: { xmlMode: true }
         }))
-        .pipe(svgstore({ inlineSvg: true }))
+        .pipe(svgstore())
         .pipe(svgmin({
             js2svg: {
                 pretty: true
@@ -100,18 +102,6 @@ gulp.task('svgstore', function () {
         }))
         .pipe(gulp.dest('.tmp/images/letters'))
         .pipe(gulp.dest('dist/images/letters'));
-
-    function fileContents (filePath, file) {
-        return file.contents.toString();
-    }
-
-    return gulp
-      .src('app/index.html')
-      .pipe(inject(svgs, { transform: fileContents }))
-      .pipe(gulp.dest('.tmp'))
-      .pipe(gulp.dest('dist'));
-
-
 });
 
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
@@ -142,6 +132,13 @@ gulp.task('serve', ['styles', 'fonts', 'svgstore'], function () {
 });
 
 gulp.task('deploy', function() {
+  // Remove temp folder created by gulp-gh-pages
+  if (argv.clean) {
+    var repoPath = 'dist';
+    console.log('Delete ' + repoPath);
+    del.sync(repoPath, {force: true});
+  }
+
   return gulp.src('./dist/**/*')
     .pipe(ghPages({ force: true }));
 });
